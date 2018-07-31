@@ -1,5 +1,5 @@
 <template>
-<div class="home">
+<div id="history">
     <div class="emptyarea-top">
         <!-- 顶部占位符 -->
     </div>
@@ -9,14 +9,14 @@
     </div>
     <div v-else>
         <!-- <md-card md-with-hover style="width:80%;margin:10px auto;" v-for="(x,no) in item.missionclient" :key="no"> -->
-			<md-card md-with-hover style="width:80%;margin:10px auto;" >
+        <md-card md-with-hover style="width:80%;margin:10px auto;">
             <md-ripple>
                 <div class="card-text" style="padding:20px 20px 5px 20px">
                     <div class="card-text-left">
                         <span>Client: </span>
                     </div>
                     <div class="card-text-right">
-						<span>123</span>
+                        <span>123</span>
                         <!-- <span>{{x.clientbname}}</span> -->
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                         <span>Address:</span>
                     </div>
                     <div class="card-text-right">
-						<span>123</span>
+                        <span>123</span>
                         <!-- <span>{{x.clientbaddress}}</span> -->
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                         <span>Contact: </span>
                     </div>
                     <div class="card-text-right">
-						<span>123</span>
+                        <span>123</span>
                         <!-- <span>{{x.clientbphone}}</span> -->
                     </div>
                 </div>
@@ -46,10 +46,10 @@
                         <span>Progress: </span>
                     </div>
                     <div class="card-text-right">
-						<span>1</span>
+                        <span>1</span>
                         <!-- <span>{{no+1}}</span> -->
                         <span>/</span>
-						<span>123</span>
+                        <span>123</span>
                         <!-- <span>{{item.missionclient.length}}</span> -->
                     </div>
                 </div>
@@ -60,25 +60,20 @@
                     </div>
                     <div class="card-text-right">
                         <!-- <span style="color:#f9cf97" v-if="!x.finishdate">Shipping</span> -->
-                        <span style="color:#f9cf97">shipping</span>
+                        <span style="color:#f9cf97">finish</span>
                     </div>
                 </div>
             </md-ripple>
         </md-card>
-    </div>
-
-    <div class="emptyarea-top">
-        <!-- 底部占位符 -->
     </div>
 </div>
 </template>
 
 <script>
 export default {
-    name: 'home',
-    data() {
-        return {
-            allinfo: true
+    data(){
+        return{
+            allinfo:true
         }
     }
 }
