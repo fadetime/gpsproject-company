@@ -42,8 +42,30 @@ export default {
                     password: this.password
                 })
                 .then(doc => {
-					this.loginfo = doc.data.msg
+                    this.loginfo = doc.data.msg
                     if (doc.data.code == 0) {
+
+                        let username = doc.data.name
+                        let address = doc.data.address
+                        let email = doc.data.email
+                        let phone = doc.data.phone
+                        let postcode = doc.data.postcode
+
+                        this.$store.commit('newname', username)
+                        this.$store.commit('newaddress', address)
+                        this.$store.commit('newphone', phone)
+                        this.$store.commit('newpostcode', postcode)
+                        this.$store.commit('newemail', email)
+
+                        localStorage.username = username
+                        localStorage.address = address
+                        localStorage.email = email
+                        localStorage.phone = phone
+                        localStorage.postcode = postcode
+
+                        let usertoken = doc.data.token
+                        this.$store.commit('newtoken', usertoken)
+                        localStorage.usertoken = usertoken
                         this.$router.push('/')
                     } else {
                         console.log('登录出现错误')
@@ -62,21 +84,21 @@ export default {
 #login input {
     border: 1px solid #ccc;
     border-radius: 10px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
+    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
     height: 40px;
     text-align: center;
-    font-size: 20px
+    font-size: 20px;
 }
 
 #login input:focus {
     border-color: #66afe9;
     outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 
 #login button {
@@ -87,7 +109,7 @@ export default {
     border-radius: 10px;
     background-color: #d74342;
     color: #fff;
-    font-weight: 500
+    font-weight: 500;
 }
 
 .bottom-info {
@@ -96,6 +118,6 @@ export default {
     width: 100%;
     border-top: 1px solid #eee;
     box-shadow: 1px 1px;
-    padding: 5px
+    padding: 5px;
 }
 </style>

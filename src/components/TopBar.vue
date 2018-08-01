@@ -3,7 +3,8 @@
     <div class="topusername" style="box-shadow: 0px 1px 5px;">
         <div class="topusername-left"></div>
         <div class="topusername-center">
-            <span>潇洒强公司</span>
+            <span v-if="$store.state.username">{{$store.state.username}}</span>
+            <span v-else>请重新登陆</span>
         </div>
         <div class="topusername-right">
             <img src="../../public/icons/refresh.png" alt="refresh" id="arrow">

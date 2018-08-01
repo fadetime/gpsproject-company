@@ -6,18 +6,14 @@
 
     <div>
         <md-card style="width:80%;margin:10px auto;">
-            <!-- <div class="card-title">
-                <span>周大福有限公司</span>
-            </div> -->
             <div class="card-item">
                 <div class="card-item-title">
                     <span>address</span>
                 </div>
                 <div class="card-item-body">
                     <md-icon style="color:#d74342">room</md-icon>
-                    <span>
-                        balabala
-                    </span>
+                    <span v-if="$store.state.username">{{$store.state.useraddress}}</span>
+                    <span v-else>您未登陆</span>
                 </div>
             </div>
 
@@ -27,9 +23,8 @@
                 </div>
                 <div class="card-item-body">
                     <md-icon style="color:#d74342">phone</md-icon>
-                    <span>
-                        88888
-                    </span>
+                    <span v-if="$store.state.username">{{$store.state.userphone}}</span>
+                    <span v-else>您未登陆</span>
                 </div>
             </div>
 
@@ -39,9 +34,8 @@
                 </div>
                 <div class="card-item-body">
                     <md-icon style="color:#d74342">markunread_mailbox</md-icon>
-                    <span>
-                        88888
-                    </span>
+                    <span v-if="$store.state.username">{{$store.state.userpostcode}}</span>
+                    <span v-else>您未登陆</span>
                 </div>
             </div>
 
@@ -51,9 +45,8 @@
                 </div>
                 <div class="card-item-body">
                     <md-icon style="color:#d74342">email</md-icon>
-                    <span>
-                        1@123.com
-                    </span>
+                    <span v-if="$store.state.username">{{$store.state.useremail}}</span>
+                    <span v-else>您未登陆</span>
                 </div>
             </div>
 

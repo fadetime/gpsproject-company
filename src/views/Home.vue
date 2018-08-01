@@ -3,21 +3,18 @@
     <div class="emptyarea-top">
         <!-- 顶部占位符 -->
     </div>
-
     <div style="padding-top:100px" v-if="!allinfo">
         <img src="../../public/img/ebuyLogo.png" width="300px">
     </div>
     <div v-else>
-        <!-- <md-card md-with-hover style="width:80%;margin:10px auto;" v-for="(x,no) in item.missionclient" :key="no"> -->
-			<md-card md-with-hover style="width:80%;margin:10px auto;" >
+        <md-card md-with-hover style="width:80%;margin:10px auto;" v-for="(x,no) in allinfo" :key="no">
             <md-ripple>
                 <div class="card-text" style="padding:20px 20px 5px 20px">
                     <div class="card-text-left">
                         <span>Client: </span>
                     </div>
                     <div class="card-text-right">
-						<span>123</span>
-                        <!-- <span>{{x.clientbname}}</span> -->
+                        <span>{{x.clientbname}}</span>
                     </div>
                 </div>
 
@@ -26,8 +23,7 @@
                         <span>Address:</span>
                     </div>
                     <div class="card-text-right">
-						<span>123</span>
-                        <!-- <span>{{x.clientbaddress}}</span> -->
+                        <span>{{x.clientbaddress}}</span>
                     </div>
                 </div>
 
@@ -36,8 +32,7 @@
                         <span>Contact: </span>
                     </div>
                     <div class="card-text-right">
-						<span>123</span>
-                        <!-- <span>{{x.clientbphone}}</span> -->
+                        <span>{{x.clientbphone}}</span>
                     </div>
                 </div>
 
@@ -46,11 +41,9 @@
                         <span>Progress: </span>
                     </div>
                     <div class="card-text-right">
-						<span>1</span>
-                        <!-- <span>{{no+1}}</span> -->
+                        <span>{{no+1}}</span>
                         <span>/</span>
-						<span>123</span>
-                        <!-- <span>{{item.missionclient.length}}</span> -->
+                        <span>{{allinfo.length}}</span>
                     </div>
                 </div>
 
@@ -74,14 +67,39 @@
 </template>
 
 <script>
+import axios from "axios";
+import addConfig from "../assets/js/addConfig.js";
+
 export default {
-    name: 'home',
+    name: "home",
     data() {
         return {
-            allinfo: true
+            allinfo: []
+        };
+    },
+    created() {
+        this.getTodayInfo();
+    },
+    methods: {
+        getTodayInfo() {
+            let startdate = new Date().toDateString();
+            let username = localStorage.getItem('username')
+            axios
+                .post(addConfig.serveradd + "/client-company", {
+                    startdate: startdate,
+                    username: username
+                })
+                .then(doc => {
+                    this.allinfo = doc.data.doc;
+                    this.$store.commit("newvalue", this.allinfo.length);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
         }
     }
-}
+};
 </script>
 
 <style scoped>

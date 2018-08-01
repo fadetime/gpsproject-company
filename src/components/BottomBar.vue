@@ -19,9 +19,17 @@ export default {
     name: 'Shift',
     data() {
         return {
-            newPosts: 2
+            // newPosts: ''
         }
     },
+    computed:{
+        newPosts(){
+            return this.$store.state.count
+        }
+    },
+    // watch(){
+    //     this.newPosts =$store.state.count
+    // },
     methods: {
         gohome() {
             this.$router.push('/')

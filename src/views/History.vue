@@ -3,21 +3,25 @@
     <div class="emptyarea-top">
         <!-- 顶部占位符 -->
     </div>
+    <div style="width:300px;margin:0 auto">
+        <md-datepicker v-model="selectedDate" md-immediately md-closed="getTodayInfo()">
+            <label>请选择日期</label>
+        </md-datepicker>
+    </div>
 
-    <div style="padding-top:100px" v-if="!allinfo">
+    <div style="padding-top:80px" v-if="!allinfo">
         <img src="../../public/img/ebuyLogo.png" width="300px">
     </div>
+
     <div v-else>
-        <!-- <md-card md-with-hover style="width:80%;margin:10px auto;" v-for="(x,no) in item.missionclient" :key="no"> -->
-        <md-card md-with-hover style="width:80%;margin:10px auto;">
+        <md-card md-with-hover style="width:80%;margin:10px auto;" v-for="(x,no) in allinfo" :key="no">
             <md-ripple>
                 <div class="card-text" style="padding:20px 20px 5px 20px">
                     <div class="card-text-left">
                         <span>Client: </span>
                     </div>
                     <div class="card-text-right">
-                        <span>123</span>
-                        <!-- <span>{{x.clientbname}}</span> -->
+                        <span>{{x.clientbname}}</span>
                     </div>
                 </div>
 
@@ -26,8 +30,7 @@
                         <span>Address:</span>
                     </div>
                     <div class="card-text-right">
-                        <span>123</span>
-                        <!-- <span>{{x.clientbaddress}}</span> -->
+                        <span>{{x.clientbaddress}}</span>
                     </div>
                 </div>
 
@@ -36,8 +39,7 @@
                         <span>Contact: </span>
                     </div>
                     <div class="card-text-right">
-                        <span>123</span>
-                        <!-- <span>{{x.clientbphone}}</span> -->
+                        <span>{{x.clientbphone}}</span>
                     </div>
                 </div>
 
@@ -46,11 +48,9 @@
                         <span>Progress: </span>
                     </div>
                     <div class="card-text-right">
-                        <span>1</span>
-                        <!-- <span>{{no+1}}</span> -->
+                        <span>{{no+1}}</span>
                         <span>/</span>
-                        <span>123</span>
-                        <!-- <span>{{item.missionclient.length}}</span> -->
+                        <span>{{allinfo.length}}</span>
                     </div>
                 </div>
 
@@ -60,21 +60,48 @@
                     </div>
                     <div class="card-text-right">
                         <!-- <span style="color:#f9cf97" v-if="!x.finishdate">Shipping</span> -->
-                        <span style="color:#f9cf97">finish</span>
+                        <span style="color:#f9cf97">shipping</span>
                     </div>
                 </div>
             </md-ripple>
         </md-card>
     </div>
+
 </div>
 </template>
 
 <script>
+import axios from 'axios'
+import addConfig from "../assets/js/addConfig.js";
+
 export default {
-    data(){
-        return{
-            allinfo:true
+    data() {
+        return {
+            allinfo: true,
+            selectedDate: '',
+            allinfo: []
         }
+    },
+    watch: {
+        selectedDate: function () {
+            console.log('###')
+            let startdate = new Date(this.selectedDate).toDateString();
+            let username = localStorage.getItem('username')
+            axios
+                .post(addConfig.serveradd + "/client-company", {
+                    startdate: startdate,
+                    username: username
+                })
+                .then(doc => {
+                    this.allinfo = doc.data.doc
+                    console.log(this.allinfo)
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    },
+    methods: {
     }
 }
 </script>
