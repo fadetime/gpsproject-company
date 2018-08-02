@@ -52,8 +52,8 @@
                         <span>State: </span>
                     </div>
                     <div class="card-text-right">
-                        <!-- <span style="color:#f9cf97" v-if="!x.finishdate">Shipping</span> -->
-                        <span style="color:#f9cf97">shipping</span>
+                        <span style="color:#f9cf97" v-if="!x.finishdate">Shipping</span>
+                        <span style="color:#99cc33" v-else>finish</span>
                     </div>
                 </div>
             </md-ripple>

@@ -9,7 +9,7 @@
         </md-datepicker>
     </div>
 
-    <div style="padding-top:80px" v-if="!allinfo">
+    <div style="padding-top:80px" v-if="!selectedDate">
         <img src="../../public/img/ebuyLogo.png" width="300px">
     </div>
 

@@ -6,7 +6,7 @@
             <span v-if="$store.state.username">{{$store.state.username}}</span>
             <span v-else>请重新登陆</span>
         </div>
-        <div class="topusername-right">
+        <div class="topusername-right" @click="reload">
             <img src="../../public/icons/refresh.png" alt="refresh" id="arrow">
         </div>
     </div>
@@ -15,7 +15,12 @@
 
 <script>
 export default {
-    name: 'topBar'
+    name: 'topBar',
+    methods:{
+        reload(){
+            this.$router.go(0)
+        }
+    }
 }
 </script>
 

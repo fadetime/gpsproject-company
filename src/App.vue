@@ -16,11 +16,8 @@ export default {
         BottomBar
     },
     mounted() {
-        console.log('###')
         if (localStorage.usertoken) {
             let usertoken = localStorage.getItem('usertoken')
-            console.log(usertoken)
-
             let username = localStorage.getItem('username')
             let address = localStorage.getItem('address')
             let email = localStorage.getItem('email')
@@ -36,7 +33,6 @@ export default {
             this.$store.commit('newtoken', usertoken)
 
         } else {
-            console.log('enter else')
             this.$router.push('/login')
         }
     }

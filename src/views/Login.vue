@@ -69,7 +69,6 @@ export default {
                         this.$router.push('/')
                     } else {
                         console.log('登录出现错误')
-                        console.log(doc)
                     }
                 })
                 .catch(err => {
