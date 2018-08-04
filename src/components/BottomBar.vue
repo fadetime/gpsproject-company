@@ -46,7 +46,7 @@ export default {
 
 <style scoped>
 #bottombar {
-    z-index: 100;
+    z-index: 9;
 }
 
 .phone-viewport {
