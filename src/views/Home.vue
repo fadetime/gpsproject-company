@@ -1,15 +1,5 @@
 <template>
 <div class="home">
-    <!-- <div class="topusername" style="box-shadow: 0px 1px 5px;">
-        <div class="topusername-left"></div>
-        <div class="topusername-center">
-            <span v-if="$store.state.username">{{$store.state.username}}</span>
-            <span v-else>请重新登陆</span>
-        </div>
-        <div class="topusername-right" @click="refresh">
-            <img src="../../public/icons/refresh.png" alt="refresh" id="arrow">
-        </div>
-    </div> -->
     <div class="emptyarea-top">
         <!-- 顶部占位符 -->
     </div>
@@ -128,40 +118,23 @@
 import axios from "axios";
 import addConfig from "../assets/js/addConfig.js";
 import _ from 'lodash'
+
 export default {
     name: "home",
     data() {
         return {
-            allinfo: [],
             detailDialog: false,
             detailPhoto: '',
             detailName: '',
             detailTime: ''
         };
     },
-    created() {
-        this.getTodayInfo();
+    computed:{
+        allinfo(){
+            return this.$store.state.todayAllInfo
+        }
     },
     methods: {
-        getTodayInfo() {
-            let startdate = new Date().toDateString();
-            let username = localStorage.getItem('username')
-            axios
-                .post(addConfig.serveradd + "/client-company", {
-                    startdate: startdate,
-                    username: username
-                })
-                .then(doc => {
-                    this.allinfo = doc.data.doc
-                    this.allinfo = _.orderBy(this.allinfo, ['finishdate'], ['desc'])
-                    this.$store.commit("newvalue", this.allinfo.length)
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-
-        },
-
         refresh() {
             let arrow = document.querySelector('#arrow')
             arrow.style.transform = 'rotate(360deg)'

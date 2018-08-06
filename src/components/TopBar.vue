@@ -14,14 +14,43 @@
 </template>
 
 <script>
+import axios from "axios";
+import addConfig from "../assets/js/addConfig.js";
+import _ from "lodash";
+
 export default {
-    name: 'topBar',
-    methods:{
-        reload(){
-            this.$router.go(0)
+    name: "topBar",
+    mounted() {
+        this.reload();
+    },
+    methods: {
+        reload() {
+            let arrow = document.querySelector("#arrow");
+            arrow.style.transform = "rotate(360deg)";
+            arrow.style.transition = "0.5s";
+            setTimeout(() => {
+                arrow.style.transform = "rotate(0deg)";
+                arrow.style.transition = "0.5s";
+            }, 300);
+
+            let startdate = new Date().toDateString();
+            let username = localStorage.getItem("username");
+            axios
+                .post(addConfig.serveradd + "/client-company", {
+                    startdate: startdate,
+                    username: username
+                })
+                .then(doc => {
+                    let allinfo = doc.data.doc;
+                    allinfo = _.orderBy(allinfo, ["finishdate"], ["desc"]);
+                    this.$store.dispatch("getTodayInfo", allinfo);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     }
-}
+};
 </script>
 
 <style scoped>

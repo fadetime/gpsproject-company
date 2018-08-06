@@ -14,7 +14,15 @@
     </div>
 
     <div v-else>
-        <md-card md-with-hover style="width:80%;margin:10px auto;" v-for="(x,no) in allinfo" :key="no">
+        <div  v-if="allinfo.length == 0" style="padding-top:100px;font-size:15px">
+            <div>
+                <md-icon class="md-size-2x">sentiment_dissatisfied</md-icon>
+            </div>
+            <div style="padding-top:10px">
+                <span>未找到当日信息</span>
+            </div>
+        </div>
+        <md-card md-with-hover style="width:80%;margin:10px auto;" v-for="(x,no) in allinfo" :key="no" v-else>
             <md-ripple>
                 <div @click="openDetail(x)">
 
@@ -68,6 +76,7 @@
                 </div>
             </md-ripple>
         </md-card>
+        
 
     </div>
     <div class="emptyarea-top">
@@ -150,7 +159,6 @@ export default {
     },
     watch: {
         selectedDate: function () {
-            console.log('###')
             let startdate = new Date(this.selectedDate).toDateString();
             let username = localStorage.getItem('username')
             axios
@@ -160,7 +168,6 @@ export default {
                 })
                 .then(doc => {
                     this.allinfo = doc.data.doc
-                    console.log(this.allinfo)
                 })
                 .catch(err => {
                     console.log(err);
