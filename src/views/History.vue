@@ -4,7 +4,7 @@
         <!-- 顶部占位符 -->
     </div>
     <div style="width:300px;margin:0 auto">
-        <md-datepicker v-model="selectedDate" md-immediately md-closed="getTodayInfo()">
+        <md-datepicker v-model="selectedDate" md-immediately md-closed="getTodayInfo()" :md-disabled-dates="disabledDates">
             <label>请选择日期</label>
         </md-datepicker>
     </div>
@@ -136,9 +136,16 @@ export default {
             selectedDate: '',
             allinfo: [],
             detailDialog: false,
-            detailName:'',
-            detailTime:'',
-            detailPhoto:''
+            detailName: '',
+            detailTime: '',
+            detailPhoto: '',
+            disabledDates: date => {
+                const day = date.getTime()
+                let today = (new Date()).getTime()
+                let configday = 15 * 24 * 3600 * 1000
+                let enableday = today - configday
+                return day < enableday
+            }
         }
     },
     watch: {
@@ -269,14 +276,14 @@ export default {
 }
 
 .namearea {
-    text-align:center;
-    padding-top:30px; 
+    text-align: center;
+    padding-top: 30px;
     height: 90px;
     line-height: 58px;
     font-weight: bold;
     background-image: url(../../public/img/wood.jpg);
-    background-repeat:no-repeat;
-    background-position:bottom;
+    background-repeat: no-repeat;
+    background-position: bottom;
     background-size: 250px 74px;
 }
 </style>
