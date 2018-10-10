@@ -3,12 +3,18 @@
     <div class="phone-viewport">
         <md-bottom-bar class="md-accent" md-type="shift">
             <md-bottom-bar-item id="bottom-bar-item-home" @click="gohome">
-                <md-icon class="md-bottom-bar-icon">home</md-icon>
+                <div class="md-bottom-bar-icon baseline_home"></div>
                 <span class="md-bottom-bar-label">主页</span>
                 <i class="badge" v-if="newPosts">{{ newPosts }}</i>
             </md-bottom-bar-item>
-            <md-bottom-bar-item id="bottom-bar-item-posts" md-label="历史" md-icon="history" @click="gomission"></md-bottom-bar-item>
-            <md-bottom-bar-item id="bottom-bar-item-favorites" md-label="信息" md-icon="account_circle" @click="goinfo"></md-bottom-bar-item>
+            <md-bottom-bar-item id="bottom-bar-item-posts" @click="gomission">
+                <div class="md-bottom-bar-icon baseline-history"></div>
+                <span class="md-bottom-bar-label">历史</span>
+            </md-bottom-bar-item>
+            <md-bottom-bar-item id="bottom-bar-item-favorites" @click="goinfo">
+                <div class="md-bottom-bar-icon settings_white"></div>
+                <span class="md-bottom-bar-label">信息</span>
+            </md-bottom-bar-item>
         </md-bottom-bar>
     </div>
 </div>
@@ -83,6 +89,30 @@ export default {
     font-weight: 600;
     letter-spacing: -.05em;
     font-family: 'Roboto Mono', monospace;
+}
+
+.baseline_home{
+    background: #fff;
+    mask-image: url(../../public/icons/baseline-home-36px.svg);
+    -webkit-mask-image: url(../../public/icons/baseline-home-36px.svg);
+    width: 36px;
+    height: 36px;
+}
+
+.baseline-history{
+    background: #fff;
+    mask-image: url(../../public/icons/baseline-history-36px.svg);
+    -webkit-mask-image: url(../../public/icons/baseline-history-36px.svg);
+    width: 36px;
+    height: 36px;
+}
+
+.settings_white{
+    background: #fff;
+    mask-image: url(../../public/icons/baseline-settings-36px.svg);
+    -webkit-mask-image: url(../../public/icons/baseline-settings-36px.svg);
+    width: 36px;
+    height: 36px;
 }
 </style>
 

@@ -26,6 +26,8 @@
 
 <script>
 import axios from 'axios'
+import addConfig from "../assets/js/addConfig.js";
+
 export default {
     name: 'home',
     data() {
@@ -37,7 +39,7 @@ export default {
     },
     methods: {
         login() {
-            axios.post('//192.168.1.5:3000/clerks/companylogin', {
+            axios.post(addConfig.serveradd + '/clerks/companylogin', {
                     username: this.username,
                     password: this.password
                 })

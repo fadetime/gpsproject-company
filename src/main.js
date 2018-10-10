@@ -6,12 +6,13 @@ import './registerServiceWorker'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import TimeFilter from './assets/js/timeFilter'
-import dateFilter from './assets/js/dateFilter'
+import DateFilter from './assets/js/dateFilter'
 import imgUrl from './assets/js/imgUrl'
+import 'animate.css/animate.min.css'
 
 Vue.use(VueMaterial)
 Vue.filter('timefilter',TimeFilter)
-Vue.filter('datefilter',dateFilter)
+Vue.filter('datefilter',DateFilter)
 Vue.filter('imgurl',imgUrl)
 
 Vue.config.productionTip = false

@@ -16,7 +16,8 @@ export default new Vuex.Store({
 		userpostcode: '',
 		useremail: '',
 		token: '',
-		todayAllInfo: []
+		todayAllInfo: [],
+		tempArr:{},
 	},
 	mutations: {
 		newvalue(state, n) {
@@ -42,11 +43,20 @@ export default new Vuex.Store({
 		},
 		getTodayInfo(state, payload) {
 			state.todayAllInfo = payload
-		}
+		},
+		setTempArr:(state , item) => {
+			state.tempArr = item
+		},
 	},
 	actions: {
 		getTodayInfo: ({ commit }, payload) => {
 			commit('getTodayInfo', payload)
-		}
+		},
+		newtoken: ({ commit }, payload) => {
+			commit('newtoken', payload)
+		},
+		setTempArr: ({ commit }, item) => {
+			commit('setTempArr', item)
+		},
 	}
 })

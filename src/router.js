@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import HistoryPage from './views/History.vue'
 import Info from './views/Info.vue'
+import DetailPage from './views/DetailPage.vue'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/info',
       name: 'info',
       component:Info
+    },
+    {
+      path: '/detailpage',
+      name: 'DetailPage',
+      component: DetailPage
     }
   ]
 })

@@ -1,61 +1,137 @@
 <template>
-<div id="info">
-    <div class="emptyarea-top">
-        <!-- 顶部占位符 -->
+    <div id="info">
+        <div class="emptyarea-top">
+            <!-- 顶部占位符 -->
+        </div>
+
+        <div>
+            <md-card style="width:80%;margin:10px auto;">
+                <div class="card-item">
+                    <div class="card-item-title">
+                        <span>address</span>
+                    </div>
+                    <div class="card-item-body">
+                        <div class="md-bottom-bar-icon baseline-room"></div>
+                        <div class="card-item-body-right">
+                            <span v-if="$store.state.username">{{$store.state.useraddress}}</span>
+                            <span v-else>您未登陆</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-item">
+                    <div class="card-item-title">
+                        <span>phone</span>
+                    </div>
+                    <div class="card-item-body">
+                        <div class="md-bottom-bar-icon baseline-phone"></div>
+                        <div class="card-item-body-right">
+                            <span v-if="$store.state.username">{{$store.state.userphone}}</span>
+                            <span v-else>您未登陆</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-item">
+                    <div class="card-item-title">
+                        <span>postcode</span>
+                    </div>
+                    <div class="card-item-body">
+                        <div class="md-bottom-bar-icon markunread_mailbox"></div>
+                        <div class="card-item-body-right">
+                            <span v-if="$store.state.username">{{$store.state.userpostcode}}</span>
+                            <span v-else>您未登陆</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-item">
+                    <div class="card-item-title">
+                        <span>email</span>
+                    </div>
+                    <div class="card-item-body">
+                        <div class="md-bottom-bar-icon baseline-email"></div>
+                        <div class="card-item-body-right">
+                            <span v-if="$store.state.username">{{$store.state.useremail}}</span>
+                            <span v-else>您未登陆</span>
+                        </div>
+                    </div>
+                </div>
+
+            </md-card>
+        </div>
+
+        <div class="bottom">
+            <md-button class="md-raised " style="width:80%;background-color: yellow;" @click="showDialog = true">退出登录</md-button>
+        </div>
+        <!-- 遮罩层 -->
+        <transition name="custom-classes-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+            <div v-if="showDialog" class="dialog" @click.self="showDialog = false">
+                <div class="dialog-body">
+                    <div style="width:100%;background-color:#d74342;box-shadow: 1px 1px 5px;">
+                        <!-- <span v-if="isChangePSW" style="font-size:20px;color:#fff;line-height: 32px;">修改密码</span> -->
+                        <span style="font-size:20px;color:#fff;line-height: 32px;">退出登录</span>
+                    </div>
+                    <div class="dialog-body-center">
+                        <!-- <div v-if="isChangePSW" style="width:250px;margin:10px auto;box-shadow:1px 1px 5px">
+                            <div class="dialog-body-center-item" style="border-bottom: 1px solid #eee;">
+                                <div class="dialog-body-center-item-left">
+                                    <label for="oldpsw">原始密码</label>
+                                </div>
+                                <div class="dialog-body-center-item-right">
+                                    <input type="password" id="oldpsw" placeholder="请输入原始密码" v-model="oldpassword">
+                                </div>
+                            </div>
+                            <div class="dialog-body-center-item" style="border-bottom: 1px solid #eee;">
+                                <div class="dialog-body-center-item-left">
+                                    <label for="newpsw">新密码</label>
+                                </div>
+                                <div class="dialog-body-center-item-right">
+                                    <input type="password" id="newpsw" placeholder="请输入新密码" v-model="newpassword">
+                                </div>
+                            </div>
+                            <div class="dialog-body-center-item">
+                                <div class="dialog-body-center-item-left">
+                                    <label for="confirmpsw">确认密码</label>
+                                </div>
+                                <div class="dialog-body-center-item-right">
+                                    <input id="confirmpsw" type="password" placeholder="请确认新密码" v-model="conpassword">
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div style="width:250px;margin:10px auto;box-shadow:1px 1px 5px;height:152px;line-height:142px">
+                            <span>是否确认退出？</span>
+                        </div>
+                    </div>
+                    <div class="dialog-body-bottom">
+                        <md-button class="md-raised" @click="showDialog = false">取消</md-button>
+                        <md-button class="md-raised md-primary" @click="confirmChange">确认</md-button>
+                    </div>
+                </div>
+            </div>
+        </transition>
+        <!-- 遮罩层 -->
     </div>
-
-    <div>
-
-        <md-card style="width:80%;margin:10px auto;">
-            <div class="card-item">
-                <div class="card-item-title">
-                    <span>address</span>
-                </div>
-                <div class="card-item-body">
-                    <md-icon style="color:#d74342">room</md-icon>
-                    <span v-if="$store.state.username">{{$store.state.useraddress}}</span>
-                    <span v-else>您未登陆</span>
-                </div>
-            </div>
-
-            <div class="card-item">
-                <div class="card-item-title">
-                    <span>phone</span>
-                </div>
-                <div class="card-item-body">
-                    <md-icon style="color:#d74342">phone</md-icon>
-                    <span v-if="$store.state.username">{{$store.state.userphone}}</span>
-                    <span v-else>您未登陆</span>
-                </div>
-            </div>
-
-            <div class="card-item">
-                <div class="card-item-title">
-                    <span>postcode</span>
-                </div>
-                <div class="card-item-body">
-                    <md-icon style="color:#d74342">markunread_mailbox</md-icon>
-                    <span v-if="$store.state.username">{{$store.state.userpostcode}}</span>
-                    <span v-else>您未登陆</span>
-                </div>
-            </div>
-
-            <div class="card-item">
-                <div class="card-item-title">
-                    <span>email</span>
-                </div>
-                <div class="card-item-body">
-                    <md-icon style="color:#d74342">email</md-icon>
-                    <span v-if="$store.state.username">{{$store.state.useremail}}</span>
-                    <span v-else>您未登陆</span>
-                </div>
-            </div>
-
-        </md-card>
-    </div>
-
-</div>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            showDialog: false
+        };
+    },
+    methods: {
+        confirmChange() {
+            localStorage.removeItem("usertoken");
+            let item = null;
+            this.$store.dispatch("newtoken", item);
+            this.$router.push("/login");
+        }
+    }
+};
+</script>
 
 <style scoped>
 .card-title {
@@ -65,7 +141,7 @@
     background-color: #f7f7f7;
     box-shadow: 0px 1px 2px 0px;
     text-align: left;
-    padding-left: 20px
+    padding-left: 20px;
 }
 
 .card-title span {
@@ -80,20 +156,102 @@
 .card-item-title {
     text-align: left;
     padding: 0 0 15px 20px;
-    font-size: 20px
+    font-size: 20px;
 }
 
 .card-item-title span {
-    color: #989898
+    color: #989898;
 }
 
 .card-item-body {
     text-align: left;
     padding-left: 30px;
+    display: flex;
+    display: -webkit-flex;
 }
 
 .card-item-body span {
-    padding-left: 10px;
-    font-size: 18px
+    font-size: 18px;
+}
+
+.card-item-body-right {
+    margin-left: 10px;
+    width: 208px;
+}
+
+.baseline-room {
+    background: #d74342;
+    mask-image: url(../../public/icons/baseline-room-24px.svg);
+    -webkit-mask-image: url(../../public/icons/baseline-room-24px.svg);
+    width: 24px;
+    height: 24px;
+}
+
+.baseline-phone {
+    background: #d74342;
+    mask-image: url(../../public/icons/baseline-phone-24px.svg);
+    -webkit-mask-image: url(../../public/icons/baseline-phone-24px.svg);
+    width: 24px;
+    height: 24px;
+}
+
+.markunread_mailbox {
+    background: #d74342;
+    mask-image: url(../../public/icons/baseline-markunread_mailbox-24px.svg);
+    -webkit-mask-image: url(../../public/icons/baseline-markunread_mailbox-24px.svg);
+    width: 24px;
+    height: 24px;
+}
+
+.baseline-email {
+    background: #d74342;
+    mask-image: url(../../public/icons/baseline-email-24px.svg);
+    -webkit-mask-image: url(../../public/icons/baseline-email-24px.svg);
+    width: 24px;
+    height: 24px;
+}
+
+.dialog {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 14;
+    display: flex;
+    align-items: center;
+}
+
+.dialog-body {
+    background-color: #fff;
+    width: 300px;
+    height: 260px;
+    margin: 0 auto;
+}
+
+.dialog-body-center-item {
+    display: flex;
+    display: -webkit-flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    padding: 10px 5px;
+}
+
+.dialog-body-center-item-left {
+    flex-basis: 30%;
+    text-align: left;
+    font-size: 16px;
+    line-height: 32px;
+}
+
+.dialog-body-center-item-right {
+    flex-basis: 70%;
+}
+
+.dialog-body-center-item-right input {
+    width: 150px;
+    border: none;
+    height: 32px;
 }
 </style>
