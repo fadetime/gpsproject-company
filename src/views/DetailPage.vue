@@ -30,7 +30,7 @@
                     </div>
 
                     <div style="width: 46px;height: 46px;box-shadow: 1px 1px 5px;position: absolute;right:14px;top:2px;border-radius: 100%;overflow: hidden;" @click="openImage(x)">
-                        <img :src="x.image | imgurl" alt="clientPic" style="width: 100%;height: 100%;object-fit: contain;" onerror="this.src='/img/ebuyLogo.png'">
+                        <img :src="x.image | imgurl" alt="clientPic" style="width: 100%;height: 100%;object-fit: contain;" v-on:error.once="loadDefault($event)">
                     </div>
                     <div @click="openDetailDialog(x)">
                         <div class="card-text">
@@ -83,7 +83,7 @@
         <transition name="custom-classes-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
             <div v-if="imageDialog" class="imageDialog" @click="imageDialog= false">
                 <div>
-                    <img :src="imageSrc | imgurl" alt="detailimg">
+                    <img :src="imageSrc | imgurl" alt="detailimg" v-on:error.once="loadDefault($event)">
                 </div>
 
             </div>
@@ -144,9 +144,10 @@ export default {
       imageDialog: false,
       detailDialog: false,
       imageSrc: '',
-      detailName:'',
-      detailTime:'',
-      detailPhoto:''
+      detailName: '',
+      detailTime: '',
+      detailPhoto: '',
+      imgDefault: '/img/ebuyLogo.png'
     }
   },
   computed: {
@@ -155,11 +156,13 @@ export default {
     }
   },
   methods: {
+    loadDefault(e) {
+      e.currentTarget.src = this.imgDefault
+    },
     turnback() {
       this.$router.push('/')
     },
     openImage(item) {
-      console.log('1')
       this.imageDialog = true
       this.imageSrc = item.image
     },

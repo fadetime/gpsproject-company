@@ -141,7 +141,6 @@ import addConfig from "../assets/js/addConfig.js";
 export default {
     data() {
         return {
-            allinfo: true,
             selectedDate: '',
             allinfo: [],
             detailDialog: false,
@@ -167,7 +166,13 @@ export default {
                     username: username
                 })
                 .then(doc => {
-                    this.allinfo = doc.data.doc
+                    if(doc.data.doc){
+                        doc.data.doc.forEach(x => {
+                            x.array.forEach(y => {
+                                this.allinfo.push(y)
+                            });
+                        });
+                    }
                 })
                 .catch(err => {
                     console.log(err);
@@ -179,7 +184,6 @@ export default {
             this.detailName = item.clientbname
             this.detailTime = item.finishdate
             this.detailPhoto = item.finishphoto
-            console.log(item)
             this.detailDialog = true
         }
     }
@@ -190,7 +194,7 @@ export default {
 .card-text {
     text-align: left;
     padding: 5px 20px;
-    font-size: 20px;
+    font-size: 18px;
     display: -webkit-flex;
     display: flex;
     -webkit-flex-flow: row;
@@ -199,11 +203,13 @@ export default {
 }
 
 .card-text-left {
-    flex-basis: 36%;
+    flex-basis: 30%;
+    text-align: right;
 }
 
 .card-text-right {
-    flex-basis: 60%;
+    flex-basis: 70%;
+    padding-left: 10px;
     min-width: 180px;
 }
 
@@ -219,7 +225,7 @@ export default {
     z-index: 101;
     width: 100%;
     top: 0;
-    font-size: 20px;
+    font-size: 18px;
     color: #fff;
     line-height: 30px;
 }

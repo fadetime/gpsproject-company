@@ -52,6 +52,7 @@ export default {
                         let email = doc.data.email
                         let phone = doc.data.phone
                         let postcode = doc.data.postcode
+                        let _id = doc.data._id
 
                         this.$store.commit('newname', username)
                         this.$store.commit('newaddress', address)
@@ -64,6 +65,7 @@ export default {
                         localStorage.email = email
                         localStorage.phone = phone
                         localStorage.postcode = postcode
+                        localStorage._id = _id
 
                         let usertoken = doc.data.token
                         this.$store.commit('newtoken', usertoken)

@@ -35,7 +35,7 @@
                             </div>
                         </div>
 
-                        <!-- <div class="card-text" style="padding:10px 0 10px 30px">
+                        <div class="card-text" style="padding:10px 0 10px 30px">
                             <div>
                                 <span style="font-size:16px;color: #989898">完成数量</span>
                             </div>
@@ -48,7 +48,7 @@
                             <div class="card-text-right" style="padding-left:50px">
                                 <span style="font-size:16px">共 {{finishNumber[index]}} 个</span>
                             </div>
-                        </div> -->
+                        </div>
 
                         <div class="card-text" style="padding:20px 0 10px 30px">
                             <div>
@@ -65,9 +65,9 @@
                             </div>
                         </div>
 
-                        <div style="display: -webkit-flex;display: flex;-webkit-flex-flow: row;flex-flow: row;padding: 0 0 10px 0;">
+                        <div style="display: -webkit-flex;display: flex;-webkit-flex-flow: row;flex-flow: row;padding: 0 0 10px 0;justify-content: center;">
                             <div v-for="(x,n) in item.array" :key="n" style="overflow:hidden;width:50px;height:50px;margin: 0 5px;box-shadow: 1px 1px 5px;" v-if="n < 5">
-                                <img :src="x.image | imgurl" alt="x.clientbname" style="height:100%;width:100%;object-fit:contain" onerror="this.src='/img/ebuyLogo.png'">
+                                <img :src="x.image | imgurl" alt="x.clientbname" style="height:100%;width:100%;object-fit:contain" v-on:error.once="loadDefault($event)">
                             </div>
                         </div>
                         <div class="card-text" style="padding:10px 0;border-top:1px solid #eee">
@@ -99,7 +99,9 @@ export default {
   name: 'home',
   data() {
     return {
-      detailDialog: false
+      detailDialog: false,
+      finishNumber: [],
+      imgDefault: '/img/ebuyLogo.png'
     }
   },
   computed: {
@@ -107,25 +109,35 @@ export default {
       return this.$store.state.todayAllInfo
     }
   },
+  watch: {
+    allinfo: function() {
+      this.countFinishNum()
+    }
+  },
+  created() {
+    this.countFinishNum()
+  },
   methods: {
-      imgError(item){
-          console.log(item)
-          item.img = require('../../public/img/ebuyLogo.png')
-      },
-    refresh() {
-      let arrow = document.querySelector('#arrow')
-      arrow.style.transform = 'rotate(360deg)'
-      arrow.style.transition = '0.5s'
-      setTimeout(() => {
-        arrow.style.transform = 'rotate(0deg)'
-        arrow.style.transition = '0.5s'
-      }, 300)
-      this.getTodayInfo()
+    countFinishNum() {
+      let indexNum = -1
+      let countNum = 0
+      this.allinfo.forEach(x => {
+        indexNum += 1
+        x.array.forEach(y => {
+          if (y.finishdate) {
+            countNum += 1
+          }
+        })
+        this.finishNumber[indexNum] = countNum
+      })
+    },
+    loadDefault(e) {
+      e.currentTarget.src = this.imgDefault
     },
 
     openDetail(item) {
-        this.$store.dispatch("setTempArr", item)
-        this.$router.push("/detailpage")
+      this.$store.dispatch('setTempArr', item)
+      this.$router.push('/detailpage')
     }
   }
 }
@@ -279,17 +291,25 @@ export default {
 }
 
 .allclientnumicon {
-    background: #d74342;
-    mask-image: url(../../public/icons/baseline-assignment_late-24px.svg);
-    -webkit-mask-image: url(../../public/icons/baseline-assignment_late-24px.svg);
-    width: 24px;
-    height: 24px;
+  background: #d74342;
+  mask-image: url(../../public/icons/baseline-assignment_late-24px.svg);
+  -webkit-mask-image: url(../../public/icons/baseline-assignment_late-24px.svg);
+  width: 24px;
+  height: 24px;
 }
 
 .date_rangeicon {
+  background: #d74342;
+  mask-image: url(../../public/icons/baseline-date_range-24px.svg);
+  -webkit-mask-image: url(../../public/icons/baseline-date_range-24px.svg);
+  width: 24px;
+  height: 24px;
+}
+
+.assignmenticon {
     background: #d74342;
-    mask-image: url(../../public/icons/baseline-date_range-24px.svg);
-    -webkit-mask-image: url(../../public/icons/baseline-date_range-24px.svg);
+    mask-image: url(../../public/icons/baseline-assignment_turned_in-24px.svg);
+    -webkit-mask-image: url(../../public/icons/baseline-assignment_turned_in-24px.svg);
     width: 24px;
     height: 24px;
 }
